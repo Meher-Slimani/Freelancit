@@ -18,7 +18,7 @@ router.post(
     check("email", "Please enter a valid email").isEmail(),
     check(
       "password",
-      "The password have to be 6 characters at least"
+      "The password have to be at least 6 characters"
     ).isLength({ min: 6 }),
     check(
       "role",
