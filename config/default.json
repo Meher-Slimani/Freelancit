@@ -1,4 +1,5 @@
 {
     "MONGO_URI": "mongodb+srv://meher_slimani:meher123@cluster0.q0yff.mongodb.net/freelancitDB?retryWrites=true&w=majority",
-    "PORT": "5000"
+    "PORT": "5000",
+    "jwtSecret": "mySecret"
 }
