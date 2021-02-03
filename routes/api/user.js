@@ -22,7 +22,7 @@ router.post(
     ).isLength({ min: 6 }),
     check(
       "role",
-      "Please check wether you are a Freelancer or Freelance Seeker"
+      "Please check whether you are a Freelancer or Freelance Seeker"
     )
       .not()
       .isEmpty(),
