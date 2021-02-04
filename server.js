@@ -13,6 +13,8 @@ app.use(express.json());
 //* Define Routes
 app.use("/api/user", require("./routes/api/user"));
 app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/profile", require("./routes/api/profile"));
+// app.use("/api/project", require("./routes/api/project"));
 
 const PORT = process.env.PORT || config.get("PORT");
 
