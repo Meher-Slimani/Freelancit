@@ -1,5 +1,9 @@
 const mongoose = require ("mongoose") 
 const projectSchema = mongoose.Schema ({
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user"
+    },
     title :{
         type : String,
         required :true ,
@@ -11,7 +15,12 @@ const projectSchema = mongoose.Schema ({
     avatar: {
     type: String,
     },
-
+    firstName: {
+        type: String,
+      },
+    lastName: {
+        type: String,
+      },
     requiredSkills  : {
         type : String,
         required :true ,
@@ -20,7 +29,7 @@ const projectSchema = mongoose.Schema ({
         type : Number,
         required :true ,
     },
-    attashement : {
+    attachment : {
         type : String,
     },
     publishedAt :{
@@ -34,14 +43,17 @@ const projectSchema = mongoose.Schema ({
     comments: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "users",
       },
       text: {
         type: String,
         required: true,
       },
-      name: {
+      firstName: {
+        type: String,
+      },
+      lastName: {
         type: String,
       },
       avatar: {
@@ -53,11 +65,6 @@ const projectSchema = mongoose.Schema ({
       },
     },
   ],
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-
 })
 module.exports = Project = mongoose.model("project", projectSchema);
 
