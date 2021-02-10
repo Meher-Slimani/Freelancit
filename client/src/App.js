@@ -13,6 +13,7 @@ import SignUp from "./components/auth/SignUp";
 import SignIn from "./components/auth/SignIn";
 import Alerts from "./components/layout/Alerts";
 import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -34,7 +35,7 @@ const App = () => {
         <Switch>
           <Route exact path="/register" component={SignUp} />
           <Route exact path="/login" component={SignIn} />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </Switch>
         <Scroll />
         <BottomNav />
