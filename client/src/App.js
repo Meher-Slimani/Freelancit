@@ -1,13 +1,45 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Box } from "@material-ui/core";
 import "./App.css";
-import SignupForm from "./components/forms/SignupForm";
-import Layout from "./components/Layout";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import NavBar2 from "./components/layout/NavBar2";
+import BottomNav from "./components/layout/BottomNav";
+import { loadUser } from "./redux/actions/auth";
+import setAuthToken from "./redux/utils/setAuthToken";
+import Landing from "./components/layout/Landing";
+import Scroll from "./components/layout/Scroll";
+import SignUp from "./components/auth/SignUp";
+import SignIn from "./components/auth/SignIn";
+import Alerts from "./components/layout/Alerts";
+import Dashboard from "./components/dashboard/Dashboard";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
   return (
-    <div className="App">
-      <Layout />
-      <SignupForm />
-    </div>
+    <Router>
+      <NavBar2 />
+      <Route exact path="/" component={Landing} />
+      <section className="container">
+        <Box mt="30px">
+          <Alerts />
+        </Box>
+        <Switch>
+          <Route exact path="/register" component={SignUp} />
+          <Route exact path="/login" component={SignIn} />
+          <Route exact path="/dashboard" component={Dashboard} />
+        </Switch>
+        <Scroll />
+        <BottomNav />
+      </section>
+    </Router>
   );
 };
 

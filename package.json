@@ -4,7 +4,9 @@
   "description": "Freelance platform for web development",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Wafa Sakouhi, Meher Slimani",
   "license": "MIT",

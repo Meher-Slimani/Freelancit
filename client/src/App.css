@@ -6,3 +6,12 @@
 body {
   background-color: #f5faff;
 }
+
+.container {
+  margin: 60px auto 0;
+}
+
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+}
