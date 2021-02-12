@@ -5,7 +5,6 @@ import Alert from "@material-ui/lab/Alert";
 
 const Alerts = () => {
   const alerts = useSelector((state) => state.alert);
-  console.log(alerts);
   return (
     alerts !== null &&
     alerts.length > 0 &&

@@ -15,7 +15,6 @@ import {
   Box,
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
-import PasswordField from "material-ui-password-field";
 import AddCircleoutlineOutlibnedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import { setAlert } from "../../redux/actions/alert";
 import { registerUser } from "../../redux/actions/auth";
@@ -146,30 +145,28 @@ const SignUp = () => {
               onChange(e);
             }}
           />
-          <Box mt="20px">
-            <PasswordField
-              fullWidth
-              label="Password"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={(e) => {
-                onChange(e);
-              }}
-            />
-          </Box>
-          <Box mt="20px">
-            <PasswordField
-              fullWidth
-              label="Password"
-              placeholder="Confirm your password"
-              name="password2"
-              value={password2}
-              onChange={(e) => {
-                onChange(e);
-              }}
-            />
-          </Box>
+          <TextField
+            fullWidth
+            type="password"
+            label="Password"
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={(e) => {
+              onChange(e);
+            }}
+          />
+          <TextField
+            fullWidth
+            type="password"
+            label="Password"
+            placeholder="Confirm your Password"
+            name="password2"
+            value={password2}
+            onChange={(e) => {
+              onChange(e);
+            }}
+          />
           <FormControl fullWidth className={classes.formControl}>
             <InputLabel>Status</InputLabel>
             <Select
