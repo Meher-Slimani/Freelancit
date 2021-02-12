@@ -11,7 +11,6 @@ import {
   Button,
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
-import PasswordField from "material-ui-password-field";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import { loginUser } from "../../redux/actions/auth";
 
@@ -83,18 +82,17 @@ const SignIn = () => {
               onChange(e);
             }}
           />
-          <Box mt="20px">
-            <PasswordField
-              fullWidth
-              label="Password"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={(e) => {
-                onChange(e);
-              }}
-            />
-          </Box>
+          <TextField
+            fullWidth
+            type="password"
+            label="Password"
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={(e) => {
+              onChange(e);
+            }}
+          />
           <Box mt="15px">
             <Button fullWidth type="submit" variant="contained" color="primary">
               SIGN IN

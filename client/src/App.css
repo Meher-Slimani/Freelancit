@@ -8,10 +8,14 @@ body {
 }
 
 .container {
-  margin: 60px auto 0;
+  margin: 10px auto 0;
 }
 
 .text-link {
   color: inherit;
   text-decoration: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
 }

@@ -4,7 +4,6 @@ import { Box } from "@material-ui/core";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar2 from "./components/layout/NavBar2";
-import BottomNav from "./components/layout/BottomNav";
 import { loadUser } from "./redux/actions/auth";
 import setAuthToken from "./redux/utils/setAuthToken";
 import Landing from "./components/layout/Landing";
@@ -27,9 +26,9 @@ const App = () => {
   return (
     <Router>
       <NavBar2 />
-      <Route exact path="/" component={Landing} />
       <section className="container">
-        <Box mt="30px">
+        <Route exact path="/" component={Landing} />
+        <Box>
           <Alerts />
         </Box>
         <Switch>
@@ -38,10 +37,8 @@ const App = () => {
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </Switch>
         <Scroll />
-        <BottomNav />
       </section>
     </Router>
   );
 };
-
 export default App;
