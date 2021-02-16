@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getCurrentProfile } from "../../redux/actions/profile";
+import { deleteAccount, getCurrentProfile } from "../../redux/actions/profile";
+import DashboardActions from "./DashboardActions";
 import {
   Badge,
   Avatar,
@@ -10,11 +11,19 @@ import {
   Paper,
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Spinner from "../layout/Spinner";
+import DisplayExperience from "./DisplayExperience";
+import DisplayEducation from "./DisplayEducation";
 import FitnessCenterOutlinedIcon from "@material-ui/icons/FitnessCenterOutlined";
+import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -62,11 +71,11 @@ const GlobalCss = withStyles({
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    // "& > *": {
-    //   margin: theme.spacing(1),
-    // },
-    // justifyContent: "center",
-    // alignItems: "center",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+    justifyContent: "center",
+    alignItems: "center",
   },
   aboutMe: {
     maxWidth: "50ch",
@@ -103,15 +112,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: "10px",
   },
+  paperStyle: { padding: "30px 20px", width: 830, margin: "20px auto" },
 }));
 
 const Dashboard = () => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
   const userProfile = useSelector((state) => state.profile);
   const { profile, loading } = userProfile;
   const { user } = auth;
   const dispatch = useDispatch();
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     dispatch(getCurrentProfile());
   }, [dispatch]);
@@ -119,6 +136,7 @@ const Dashboard = () => {
     <Spinner />
   ) : (
     <>
+      {/* <Box onSc></Box> */}
       <Grid
         container
         display="flex"
@@ -140,7 +158,7 @@ const Dashboard = () => {
           </StyledBadge>
         </Grid>
         <Grid item>
-          <Typography variant="h3" color="primary">
+          <Typography variant="h3" style={{ color: "#1F7396" }}>
             {user && user.firstName && user.firstName}{" "}
             {user && user.lastName && user.lastName}
           </Typography>
@@ -152,7 +170,73 @@ const Dashboard = () => {
         </Grid>
       </Grid>
       {profile !== null ? (
-        <>has</>
+        <>
+          <DashboardActions />
+          <Box>
+            {profile.experiences.length > 0 ? (
+              <Paper elevation={20} className={classes.paperStyle}>
+                <Typography variant="h4" style={{ color: "#1F7396" }}>
+                  Professional Experiences
+                </Typography>
+                <DisplayExperience experience={profile.experiences} />
+              </Paper>
+            ) : (
+              ""
+            )}
+            {profile.education.length > 0 ? (
+              <Paper elevation={20} className={classes.paperStyle}>
+                <Typography variant="h4" style={{ color: "#1F7396" }}>
+                  Academic Cursus
+                </Typography>
+                <DisplayEducation education={profile.education} />
+              </Paper>
+            ) : (
+              ""
+            )}
+          </Box>
+          <Box display="flex" justifyContent="center" my="50px">
+            <Button
+              size="large"
+              startIcon={<HighlightOffOutlinedIcon />}
+              color="secondary"
+              variant="contained"
+              onClick={handleClickOpen}
+            >
+              Delete Account
+            </Button>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"You want to delete your account?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  The Action you are engaging can not be undone. Confirm to
+                  proceed.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Disagree
+                </Button>
+                <Button
+                  onClick={() => {
+                    dispatch(deleteAccount());
+                    handleClose();
+                  }}
+                  color="primary"
+                  autoFocus
+                >
+                  Agree
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Box>
+        </>
       ) : (
         <>
           <Box
@@ -162,12 +246,15 @@ const Dashboard = () => {
             alignItems="center"
             mt="10px"
           >
-            <Typography component="p" mX="10px">
+            <Typography component="p">
               You have not set up a profile yet. Please create one
             </Typography>
             <Link to="/create-profile" className="text-link">
               <Box mt="10px">
-                <Button color="primary" variant="contained">
+                <Button
+                  style={{ backgroundColor: "#1F7396", color: "white" }}
+                  variant="contained"
+                >
                   Create Profile
                 </Button>
               </Box>
