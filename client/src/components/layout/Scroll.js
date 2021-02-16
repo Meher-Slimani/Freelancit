@@ -52,7 +52,11 @@ const Scroll = (props) => {
   const classes = useStyles();
   return (
     <ScrollTop {...props}>
-      <Fab color="secondary" size="small" aria-label="scroll back to top">
+      <Fab
+        style={{ backgroundColor: "#1F7396", color: "white" }}
+        size="small"
+        aria-label="scroll back to top"
+      >
         <KeyboardArrowUpIcon />
       </Fab>
     </ScrollTop>

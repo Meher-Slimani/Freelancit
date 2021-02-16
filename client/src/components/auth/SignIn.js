@@ -94,7 +94,12 @@ const SignIn = () => {
             }}
           />
           <Box mt="15px">
-            <Button fullWidth type="submit" variant="contained" color="primary">
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              style={{ backgroundColor: "#1F7396", color: "white" }}
+            >
               SIGN IN
             </Button>
           </Box>
