@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import origami from "../assets/origami.png";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   Toolbar,
@@ -26,20 +26,15 @@ import InfoIcon from "@material-ui/icons/Info";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import { logout } from "../../redux/actions/auth";
 
-const GlobalCss = withStyles({
-  "@global": {
-    ".MuiIconButton-root": {
-      color: "white",
-    },
-  },
-})(() => null);
-
 const useStyles = makeStyles({
   glassLogo: {
     background: "white",
     background:
       "linear-gradient(45deg, rgba(255,255,255,0.5), rgba(255,255,255,0.1))",
     borderRadius: "10px",
+  },
+  menu: {
+    color: "white",
   },
 });
 
@@ -124,17 +119,16 @@ const NavBar2 = () => {
   return (
     <>
       <CssBaseline />
-      <AppBar>
+      <AppBar style={{ background: "#1F7396" }}>
         <Box display="flex" justifyContent="space-between">
           <Box display="flex">
-            <GlobalCss />
             <IconButton
               aria-label="more"
               aria-controls="long-menu"
               aria-haspopup="true"
               onClick={handleClick}
             >
-              <MoreVertIcon />
+              <MoreVertIcon className={classes.menu} />
             </IconButton>
             <Menu
               id="long-menu"
@@ -183,9 +177,11 @@ const NavBar2 = () => {
             alignItems="center"
             mr="20px"
           >
-            <Button startIcon={<PeopleAltOutlinedIcon />} color="inherit">
-              Freelancers
-            </Button>
+            <Link to="/profiles" className="text-link">
+              <Button startIcon={<PeopleAltOutlinedIcon />} color="inherit">
+                Freelancers
+              </Button>
+            </Link>
             <Button startIcon={<WorkOutlineOutlinedIcon />} color="inherit">
               Projects
             </Button>

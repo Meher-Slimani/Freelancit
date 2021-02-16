@@ -8,7 +8,8 @@ body {
 }
 
 .container {
-  margin: 10px auto 0;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .text-link {
@@ -18,4 +19,16 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+#alert {
+  width: fit-content;
+  position: fixed;
+  top: 100px;
+  right: 0;
+  margin-right: 20px;
+}
+
+.facebbok {
+  color: #1877f2;
 }

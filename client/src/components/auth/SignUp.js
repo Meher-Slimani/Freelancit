@@ -180,7 +180,12 @@ const SignUp = () => {
               <MenuItem value="Freelance Seeker">Freelance Seeker</MenuItem>
             </Select>
           </FormControl>
-          <Button fullWidth type="submit" variant="contained" color="primary">
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            style={{ backgroundColor: "#1F7396", color: "white" }}
+          >
             SIGN UP
           </Button>
         </form>

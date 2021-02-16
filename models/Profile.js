@@ -16,7 +16,6 @@ const profileSchema = mongoose.Schema({
   },
   gender: {
     type: String,
-    required: true,
   },
   spokenLanguages: {
     type: [String],
