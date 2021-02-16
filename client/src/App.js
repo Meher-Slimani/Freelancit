@@ -13,6 +13,12 @@ import SignIn from "./components/auth/SignIn";
 import Alerts from "./components/layout/Alerts";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import CreateProfile from "./components/profile-forms/CreateProfile";
+import ExperienceDetails from "./components/profile-forms/ExperienceDetails";
+import EducationDetails from "./components/profile-forms/EducationDetails";
+import EditProfile from "./components/profile-forms/EditProfile";
+import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -28,13 +34,31 @@ const App = () => {
       <NavBar2 />
       <section className="container">
         <Route exact path="/" component={Landing} />
-        <Box>
+        <Box id="alert">
           <Alerts />
         </Box>
         <Switch>
           <Route exact path="/register" component={SignUp} />
           <Route exact path="/login" component={SignIn} />
+          <Route exact path="/profiles" component={Profiles} />
+          <Route exact path="/profile/:userId" component={Profile} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute
+            exact
+            path="/create-profile"
+            component={CreateProfile}
+          />
+          <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+          <PrivateRoute
+            exact
+            path="/add-education"
+            component={EducationDetails}
+          />
+          <PrivateRoute
+            exact
+            path="/add-experience"
+            component={ExperienceDetails}
+          />
         </Switch>
         <Scroll />
       </section>
