@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "15px",
     minWidth: 120,
   },
+  container: {
+    width: "100vw",
+    height: "100vh",
+    // backgroundColor: "#040724",
+  },
 }));
 
 const ExperienceDetails = ({ history }) => {
@@ -55,7 +60,12 @@ const ExperienceDetails = ({ history }) => {
   };
 
   return (
-    <Grid>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      className={classes.container}
+    >
       <Paper elevation={20} className={classes.paperStyle}>
         <Grid align="center">
           <Avatar className={classes.avatarstyle}>
@@ -171,7 +181,7 @@ const ExperienceDetails = ({ history }) => {
           </Box>
         </form>
       </Paper>
-    </Grid>
+    </Box>
   );
 };
 

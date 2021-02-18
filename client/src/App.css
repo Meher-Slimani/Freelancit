@@ -4,12 +4,14 @@
 }
 
 body {
-  background-color: #f5faff;
+  background-color: #040724;
 }
 
 .container {
-  width: 100%;
-  margin-top: 10px;
+  width: 100vw;
+  height: 100vh;
+  /* margin-top: 10px; */
+  background-color: #040724;
 }
 
 .text-link {
@@ -19,6 +21,7 @@ body {
 
 html {
   scroll-behavior: smooth;
+  background-color: #040724;
 }
 
 #alert {

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Box } from "@material-ui/core";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavBar2 from "./components/layout/NavBar2";
+import NavBar from "./components/layout/NavBar";
 import { loadUser } from "./redux/actions/auth";
 import setAuthToken from "./redux/utils/setAuthToken";
 import Landing from "./components/layout/Landing";
@@ -31,7 +31,7 @@ const App = () => {
   }, [dispatch]);
   return (
     <Router>
-      <NavBar2 />
+      <NavBar />
       <section className="container">
         <Route exact path="/" component={Landing} />
         <Box id="alert">
@@ -60,7 +60,7 @@ const App = () => {
             component={ExperienceDetails}
           />
         </Switch>
-        <Scroll />
+        <Scroll showBelow={50} />
       </section>
     </Router>
   );

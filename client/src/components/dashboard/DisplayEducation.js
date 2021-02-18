@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const DisplayExperience = ({ education }) => {
+const DisplayExperience = ({ education, dashboard }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const educationRows =
@@ -47,18 +47,20 @@ const DisplayExperience = ({ education }) => {
             )}
           </TableCell>
           <TableCell>{edu.description}</TableCell>
-          <TableCell>
-            <Button
-              startIcon={<DeleteForeverOutlinedIcon />}
-              onClick={() => {
-                dispatch(deleteEducation(edu._id));
-              }}
-              color="secondary"
-              variant="contained"
-            >
-              Remove
-            </Button>
-          </TableCell>
+          {dashboard && (
+            <TableCell>
+              <Button
+                startIcon={<DeleteForeverOutlinedIcon />}
+                onClick={() => {
+                  dispatch(deleteEducation(edu._id));
+                }}
+                color="secondary"
+                variant="contained"
+              >
+                Remove
+              </Button>
+            </TableCell>
+          )}
         </TableRow>
       ))
     );

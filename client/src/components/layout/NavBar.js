@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   glassLogo: {
     background: "white",
     background:
-      "linear-gradient(45deg, rgba(255,255,255,0.5), rgba(255,255,255,0.1))",
+      "linear-gradient(to right bottom, rgba(255, 255, 255,0.2), rgba(255, 255, 255,0.05))",
     borderRadius: "10px",
   },
   menu: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   },
 });
 
-const NavBar2 = () => {
+const NavBar = () => {
   const classes = useStyles();
   const auth = useSelector((state) => state.auth);
   const { isAuthenticated, loading } = auth;
@@ -119,7 +119,7 @@ const NavBar2 = () => {
   return (
     <>
       <CssBaseline />
-      <AppBar style={{ background: "#1F7396" }}>
+      <AppBar style={{ background: "#040724" }}>
         <Box display="flex" justifyContent="space-between">
           <Box display="flex">
             <IconButton
@@ -194,4 +194,4 @@ const NavBar2 = () => {
   );
 };
 
-export default NavBar2;
+export default NavBar;

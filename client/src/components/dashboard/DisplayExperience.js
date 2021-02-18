@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-const DisplayExperience = ({ experience }) => {
+const DisplayExperience = ({ experience, dashboard }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const experienceRows =
@@ -47,18 +47,20 @@ const DisplayExperience = ({ experience }) => {
             )}
           </TableCell>
           <TableCell>{exp.description}</TableCell>
-          <TableCell>
-            <Button
-              startIcon={<DeleteForeverOutlinedIcon />}
-              onClick={() => {
-                dispatch(deleteExperience(exp._id));
-              }}
-              variant="contained"
-              color="secondary"
-            >
-              Remove
-            </Button>
-          </TableCell>
+          {dashboard && (
+            <TableCell>
+              <Button
+                startIcon={<DeleteForeverOutlinedIcon />}
+                onClick={() => {
+                  dispatch(deleteExperience(exp._id));
+                }}
+                variant="contained"
+                color="secondary"
+              >
+                Remove
+              </Button>
+            </TableCell>
+          )}
         </TableRow>
       ))
     );
@@ -93,7 +95,7 @@ const DisplayExperience = ({ experience }) => {
                   Description
                 </Typography>
               </TableCell>
-              <TableCell align="center"></TableCell>
+              {dashboard && <TableCell align="center"></TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>{experienceRows}</TableBody>
