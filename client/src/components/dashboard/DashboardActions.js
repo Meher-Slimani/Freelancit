@@ -9,17 +9,29 @@ const DashboardActions = () => {
   return (
     <Box display="flex" justifyContent="center" mt="10px">
       <Link to="/edit-profile" className="text-link">
-        <Button startIcon={<SpellcheckOutlinedIcon />} variant="outlined">
+        <Button
+          startIcon={<SpellcheckOutlinedIcon />}
+          variant="outlined"
+          style={{ color: "white", borderColor: "white" }}
+        >
           Edit Profile
         </Button>
       </Link>
       <Link to="/add-experience" className="text-link">
-        <Button startIcon={<WorkOutlineOutlinedIcon />} variant="outlined">
+        <Button
+          startIcon={<WorkOutlineOutlinedIcon />}
+          variant="outlined"
+          style={{ color: "white", borderColor: "white" }}
+        >
           Add Experience
         </Button>
       </Link>
       <Link to="/add-education" className="text-link">
-        <Button startIcon={<BorderColorOutlinedIcon />} variant="outlined">
+        <Button
+          startIcon={<BorderColorOutlinedIcon />}
+          variant="outlined"
+          style={{ color: "white", borderColor: "white" }}
+        >
           Add Education
         </Button>
       </Link>

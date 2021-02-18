@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   glassItem: {
     background: "white",
     background:
-      "linear-gradient(45deg, rgba(31, 115, 150,0.7), rgba(31, 115, 150,0.3))",
+      "linear-gradient(to right bottom, rgba(255, 255, 255,0.2), rgba(255, 255, 255,0.05))",
     borderRadius: "10px",
     position: "relative",
     width: "400px",
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     // justifyContent: "center",
     // alignItems: "center",
     margin: "10px",
+    boxShadow: "2px 8px 20px -6px #000000",
     overflow: "hidden",
   },
   info: {
@@ -42,13 +43,13 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     left: 0,
     right: 0,
-    background: "#263238",
+    background: "#34374E",
     color: "white",
     padding: "1rem",
     transform: "translateY(100%)",
     transition: "transform 0.3s ease-in-out",
     overflow: "auto",
-    height: "255px",
+    height: "260px",
     borderRadius: "10px",
     zIndex: 0,
   },
@@ -77,6 +78,7 @@ const ProfileItem = ({ profile }) => {
         justify="center"
         alignItems="center"
         flexDirection="column"
+        pb="5px"
       >
         <GlobalCss />
         <Box className={classes.root}>
@@ -102,7 +104,10 @@ const ProfileItem = ({ profile }) => {
         </IconButton>
         <Box mt="10pw">
           <Link to={`/profile/${user._id}`} className="text-link">
-            <Button color="primary" variant="outlined">
+            <Button
+              style={{ color: "white", borderColor: "white" }}
+              variant="outlined"
+            >
               View Profile
             </Button>
           </Link>

@@ -16,13 +16,22 @@ import { loginUser } from "../../redux/actions/auth";
 
 //* MATERIAL UI STYLING
 const useStyles = makeStyles((theme) => ({
-  paperStyle: { padding: "30px 20px", width: 300, margin: "90px auto" },
+  paperStyle: {
+    padding: "30px 20px",
+    width: 300,
+    margin: "auto",
+  },
   avatarstyle: { backgroundColor: "green" },
   formControl: {
     margin: theme.spacing(1),
     marginLeft: 0,
     marginBottom: "15px",
     minWidth: 120,
+  },
+  container: {
+    width: "100vw",
+    height: "100vh",
+    // backgroundColor: "#040724",
   },
 }));
 
@@ -56,7 +65,12 @@ const SignIn = () => {
   }
 
   return (
-    <Grid>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignContent="center"
+      className={classes.container}
+    >
       <Paper elevation={20} className={classes.paperStyle}>
         <Grid align="center">
           <Avatar className={classes.avatarstyle}>
@@ -98,14 +112,14 @@ const SignIn = () => {
               fullWidth
               type="submit"
               variant="contained"
-              style={{ backgroundColor: "#1F7396", color: "white" }}
+              style={{ backgroundColor: "#040724", color: "white" }}
             >
               SIGN IN
             </Button>
           </Box>
         </form>
       </Paper>
-    </Grid>
+    </Box>
   );
 };
 

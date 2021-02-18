@@ -178,7 +178,10 @@ const Dashboard = () => {
                 <Typography variant="h4" style={{ color: "#1F7396" }}>
                   Professional Experiences
                 </Typography>
-                <DisplayExperience experience={profile.experiences} />
+                <DisplayExperience
+                  experience={profile.experiences}
+                  dashboard={true}
+                />
               </Paper>
             ) : (
               ""
@@ -188,7 +191,10 @@ const Dashboard = () => {
                 <Typography variant="h4" style={{ color: "#1F7396" }}>
                   Academic Cursus
                 </Typography>
-                <DisplayEducation education={profile.education} />
+                <DisplayEducation
+                  education={profile.education}
+                  dashboard={true}
+                />
               </Paper>
             ) : (
               ""
@@ -246,11 +252,11 @@ const Dashboard = () => {
             alignItems="center"
             mt="10px"
           >
-            <Typography component="p">
+            <Typography component="p" style={{ color: "white" }}>
               You have not set up a profile yet. Please create one
             </Typography>
             <Link to="/create-profile" className="text-link">
-              <Box mt="10px">
+              <Box mt="20px">
                 <Button
                   style={{ backgroundColor: "#1F7396", color: "white" }}
                   variant="contained"

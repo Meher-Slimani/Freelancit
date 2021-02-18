@@ -1,65 +1,56 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Fab from "@material-ui/core/Fab";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import Zoom from "@material-ui/core/Zoom";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import React, { useState, useEffect } from "react";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { makeStyles } from "@material-ui/core/styles";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  toTop: {
+    borderRadius: "50%",
     position: "fixed",
     bottom: theme.spacing(8),
-    right: theme.spacing(2),
+    right: theme.spacing(4),
     zIndex: 4,
+    backgroundColor: "#FFB400",
+    transition: "0.5s",
+    "&:hover, &.Mui-focusVisible": {
+      backgroundColor: "#FFB400",
+      transition: "all .25s ease-in-out",
+    },
   },
 }));
 
-function ScrollTop(props) {
-  const { children, window } = props;
+const Scroll = ({ showBelow }) => {
   const classes = useStyles();
-  const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
-    disableHysteresis: true,
-    threshold: 100,
-  });
 
-  const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector(
-      "#back-to-top-anchor"
-    );
+  const [show, setShow] = useState(showBelow ? false : true);
 
-    if (anchor) {
-      anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+  const handleScroll = () => {
+    if (window.pageYOffset > showBelow) {
+      if (!show) setShow(true);
+    } else {
+      if (show) setShow(false);
     }
   };
 
-  return (
-    <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
-        {children}
-      </div>
-    </Zoom>
-  );
-}
+  useEffect(() => {
+    if (showBelow) {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  });
 
-ScrollTop.propTypes = {
-  children: PropTypes.element.isRequired,
-  window: PropTypes.func,
-};
+  const handleClick = () => {
+    window["scrollTo"]({ top: 0, behavior: "smooth" });
+  };
 
-const Scroll = (props) => {
-  const classes = useStyles();
   return (
-    <ScrollTop {...props}>
-      <Fab
-        style={{ backgroundColor: "#1F7396", color: "white" }}
-        size="small"
-        aria-label="scroll back to top"
-      >
-        <KeyboardArrowUpIcon />
-      </Fab>
-    </ScrollTop>
+    <div className={classes.toTop}>
+      {show && (
+        <IconButton onClick={handleClick}>
+          <ExpandLessIcon style={{ color: "white" }} />
+        </IconButton>
+      )}
+    </div>
   );
 };
 
