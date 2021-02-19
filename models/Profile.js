@@ -49,9 +49,25 @@ const profileSchema = mongoose.Schema({
       type: String,
     },
   },
-  rating: {
-    type: Number,
-  },
+  rating: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+      rate: {
+        type: Number,
+      },
+    },
+  ],
+  myProjects: [
+    {
+      project: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "project",
+      },
+    },
+  ],
   experiences: [
     {
       title: {

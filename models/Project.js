@@ -1,46 +1,46 @@
-const mongoose = require ("mongoose") 
-const projectSchema = mongoose.Schema ({
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user"
-    },
-    title :{
-        type : String,
-        required :true ,
-    }, 
-    description :{
-        type : String,
-        required :true ,
-    },  
-    avatar: {
+const mongoose = require("mongoose");
+const projectSchema = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+  title: {
     type: String,
-    },
-    firstName: {
-        type: String,
-      },
-    lastName: {
-        type: String,
-      },
-    requiredSkills  : {
-        type : String,
-        required :true ,
-    },
-    estimatedBudget : {
-        type : Number,
-        required :true ,
-    },
-    attachment : {
-        type : String,
-    },
-    publishedAt :{
-        type : Date,
-        default: Date.now ,
-    },
-    status :{
-        type : String,
-        required :true ,
-    },
-    comments: [
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  avatar: {
+    type: String,
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  requiredSkills: {
+    type: [String],
+    required: true,
+  },
+  estimatedBudget: {
+    type: Number,
+    required: true,
+  },
+  attachment: {
+    type: String,
+  },
+  publishedAt: {
+    type: Date,
+    default: Date.now,
+  },
+  closed: {
+    type: Boolean,
+    default: false,
+  },
+  comments: [
     {
       user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -65,6 +65,14 @@ const projectSchema = mongoose.Schema ({
       },
     },
   ],
-})
+  candidates: [
+    {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+      affected: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  ],
+});
 module.exports = Project = mongoose.model("project", projectSchema);
-

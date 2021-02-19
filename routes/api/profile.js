@@ -53,7 +53,6 @@ router.post(
       spokenLanguages,
       hourlyRate,
       skills,
-      contacts,
       githubusername,
       certifications,
       portfolio,
@@ -179,9 +178,9 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
-//@route    PUT api/profile/experience
-//@desc     Add profile experience
-//@access   Private
+//* @route    PUT api/profile/experience
+//* @desc     Add profile experience
+//* @access   Private
 router.put(
   "/experience",
   [
@@ -227,9 +226,9 @@ router.put(
   }
 );
 
-//@route    Delete api/profile/experience/:experienceId
-//@desc     Delete an experience
-//@access   Private
+//* @route    Delete api/profile/experience/:experienceId
+//* @desc     Delete an experience
+//* @access   Private
 router.delete("/experience/:experienceId", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
@@ -248,9 +247,9 @@ router.delete("/experience/:experienceId", auth, async (req, res) => {
   }
 });
 
-//@route    PUT api/profile/education
-//@desc     Add profile education
-//@access   Private
+//* @route    PUT api/profile/education
+//* @desc     Add profile education
+//* @access   Private
 router.put(
   "/education",
   [
@@ -297,9 +296,9 @@ router.put(
   }
 );
 
-//@route    Delete api/profile/education/:educationId
-//@desc     Delete an education
-//@access   Private
+//* @route    Delete api/profile/education/:educationId
+//* @desc     Delete an education
+//* @access   Private
 router.delete("/education/:educationId", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
@@ -318,9 +317,9 @@ router.delete("/education/:educationId", auth, async (req, res) => {
   }
 });
 
-//@route    GET api/profile/github/:username
-//@desc     Get user repos from github
-//@access   Public
+//* @route    GET api/profile/github/:username
+//* @desc     Get user repos from github
+//* @access   Public
 router.get("/github/:username", async (req, res) => {
   try {
     const options = {
