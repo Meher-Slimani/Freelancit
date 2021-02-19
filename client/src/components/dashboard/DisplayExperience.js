@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
+import moment from "moment";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -37,14 +38,14 @@ const DisplayExperience = ({ experience, dashboard }) => {
           <TableCell>{exp.company}</TableCell>
           <TableCell>{exp.title}</TableCell>
           <TableCell>
-            <Moment format="YYYY/MM/DD">{exp.from}</Moment>
+            {moment(exp.from).format("DD/MM/YYYY")}
+            {/* <Moment format="YYYY/MM/DD">{exp.from}</Moment> */}
           </TableCell>
           <TableCell>
-            {exp.to === null ? (
-              "Now"
-            ) : (
-              <Moment format="YYYY/MM/DD">{exp.to}</Moment>
-            )}
+            {
+              exp.current === true ? "Now" : moment(exp.to).format("DD/MM/YYYY")
+              // <Moment format="YYYY/MM/DD">{exp.to}</Moment>
+            }
           </TableCell>
           <TableCell>{exp.description}</TableCell>
           {dashboard && (

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     width: "1100px",
     margin: "30px 0 0 30px",
   },
-  avatarstyle: { backgroundColor: "green" },
+  avatarstyle: { backgroundColor: "green", width: "40px", height: "40px" },
   formControl: {
     margin: theme.spacing(1),
     marginLeft: 0,
@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     width: "100vw",
     height: "100vh",
-    // backgroundColor: "#040724",
   },
 }));
 

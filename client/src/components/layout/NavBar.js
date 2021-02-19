@@ -182,9 +182,11 @@ const NavBar = () => {
                 Freelancers
               </Button>
             </Link>
-            <Button startIcon={<WorkOutlineOutlinedIcon />} color="inherit">
-              Projects
-            </Button>
+            <Link to="/projects" className="text-link">
+              <Button startIcon={<WorkOutlineOutlinedIcon />} color="inherit">
+                Projects
+              </Button>
+            </Link>
             {!loading && <>{!isAuthenticated ? guestLinks : authLinks}</>}
           </Box>
         </Box>
