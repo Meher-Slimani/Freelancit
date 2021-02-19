@@ -18,7 +18,7 @@ import { addEducation } from "../../redux/actions/profile";
 
 const useStyles = makeStyles((theme) => ({
   paperStyle: { padding: "30px 20px", width: "700px", margin: "30px auto" },
-  avatarstyle: { backgroundColor: "green" },
+  avatarstyle: { backgroundColor: "green", width: "40px", height: "40px" },
   formControl: {
     margin: theme.spacing(1),
     marginLeft: 0,

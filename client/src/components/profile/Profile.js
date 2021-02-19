@@ -238,26 +238,20 @@ const Profile = ({ match }) => {
                             />
                           </Box>
                           <Box>
-                            <Typography
-                              display="inline"
-                              variant="body1"
-                              style={{ color: "white", marginRight: "5px" }}
-                            >
-                              {React.Children.toArray(
-                                profile.spokenLanguages.map((lang) => (
-                                  <Typography
-                                    display="inline"
-                                    variant="body1"
-                                    style={{
-                                      color: "white",
-                                      marginRight: "5px",
-                                    }}
-                                  >
-                                    {lang}
-                                  </Typography>
-                                ))
-                              )}
-                            </Typography>
+                            {React.Children.toArray(
+                              profile.spokenLanguages.map((lang) => (
+                                <Typography
+                                  display="inline"
+                                  variant="body1"
+                                  style={{
+                                    color: "white",
+                                    marginRight: "5px",
+                                  }}
+                                >
+                                  {lang}
+                                </Typography>
+                              ))
+                            )}
                           </Box>
                         </Box>
                       )}

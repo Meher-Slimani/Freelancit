@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
+import moment from "moment";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -37,14 +38,14 @@ const DisplayExperience = ({ education, dashboard }) => {
           <TableCell>{edu.degree}</TableCell>
           <TableCell>{edu.fieldofstudy}</TableCell>
           <TableCell>
-            <Moment format="YYYY/MM/DD">{edu.from}</Moment>
+            {moment(edu.from).format("DD/MM/YYYY")}
+            {/* <Moment format="YYYY/MM/DD">{edu.from}</Moment> */}
           </TableCell>
           <TableCell>
-            {edu.to === null ? (
-              "Now"
-            ) : (
-              <Moment format="YYYY/MM/DD">{edu.to}</Moment>
-            )}
+            {
+              edu.current === true ? "Now" : moment(edu.to).format("DD/MM/YYYY")
+              // <Moment format="YYYY/MM/DD">{edu.to}</Moment>
+            }
           </TableCell>
           <TableCell>{edu.description}</TableCell>
           {dashboard && (
