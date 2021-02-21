@@ -8,6 +8,7 @@ import Spinner from "../layout/Spinner";
 import FreelancerContent from "./FreelancerContent";
 import FreelanceSeekerContent from "./FreelanceSeekerContent";
 import TopSection from "./TopSection";
+import { getAllProjects } from "../../redux/actions/project";
 
 const Dashboard = () => {
   const auth = useSelector((state) => state.auth);
@@ -21,6 +22,7 @@ const Dashboard = () => {
       type: CLEAR_PROFILE,
     });
     dispatch(getCurrentProfile());
+    dispatch(getAllProjects());
   }, [dispatch]);
   return loading && profile === null ? (
     <Spinner />
@@ -30,7 +32,7 @@ const Dashboard = () => {
     </>
   ) : profile !== null ? (
     <>
-      <TopSection user={user} />
+      <TopSection user={user} profile={profile} />
       <FreelancerContent profile={profile} user={user} />
     </>
   ) : (

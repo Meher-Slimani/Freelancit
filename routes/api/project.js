@@ -44,8 +44,8 @@ router.post(
         closed,
         avatar: user.avatar,
         attachment,
-        lastName: user.firstName,
-        firstName: user.lastName,
+        lastName: user.lastName,
+        firstName: user.firstName,
         user: user.id,
       });
       await newProject.save();
@@ -62,7 +62,7 @@ router.post(
 //* access    Public
 router.get("/", async (req, res) => {
   try {
-    const projects = await Project.find().sort({ date: -1 });
+    const projects = await Project.find().sort({ publishedAt: -1 });
     res.json(projects);
   } catch (error) {
     console.error(error.message);
@@ -74,7 +74,9 @@ router.get("/", async (req, res) => {
 //* access    Public
 router.get("/:projectId", async (req, res) => {
   try {
-    const project = await Project.findById(req.params.projectId);
+    const project = await Project.findById(
+      req.params.projectId
+    ).populate("user", ["email", "phoneNumber"]);
     if (!project) {
       return res.status(400).json({ msg: "Project Not Found" });
     }
@@ -146,13 +148,13 @@ router.delete("/comment/:projectId/:commentId", auth, async (req, res) => {
       return comment.id === req.params.commentId;
     });
     if (!comment) {
-      return res.status(404).json({ msg: "Cooment Does Not Exist" });
+      return res.status(404).json({ msg: "Comment Does Not Exist" });
     }
     if (project.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: "User not authorized" });
     }
     const removeIndex = project.comments.map((comment) => {
-      comment.user.toString().indexOf(req.user.id);
+      return comment.user.toString().indexOf(req.user.id);
     });
     project.comments.splice(removeIndex, 1);
     await project.save();
@@ -182,9 +184,29 @@ router.put("/apply/:projectId", auth, async (req, res) => {
     }
     project.candidates.unshift({ user: req.user.id });
     await project.save();
-    res.json(project.candidates);
+    res.json({ msg: "Applied successfully" });
   } catch (error) {
     console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+//* @route    GET api/project/candidates/:projectId
+//* desc      Get Candidates of a project
+//* access    Private
+router.get("/candidates/:projectId", auth, async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.projectId);
+
+    if (project.candidates.length === 0) {
+      return res
+        .status(400)
+        .json({ msg: "There is no candidates for this project yet" });
+    }
+
+    res.json(project.candidates);
+  } catch (error) {
+    console.error(error.message);
     res.status(500).send("Server Error");
   }
 });

@@ -43,6 +43,9 @@ const GlobalCss = withStyles({
       minWidth: 15,
       borderRadius: "50%",
     },
+    ".MuiRating-iconEmpty": {
+      color: "white",
+    },
   },
 })(() => null);
 
@@ -57,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopSection = ({ user }) => {
+const TopSection = ({ user, profile }) => {
   const classes = useStyles();
   return (
     <Grid
@@ -86,11 +89,24 @@ const TopSection = ({ user }) => {
           {user && user.lastName && user.lastName}
         </Typography>
       </Grid>
-      <Grid item>
-        <Box mt="15px">
-          <Rating name="read-only" value={5} readOnly />
-        </Box>
-      </Grid>
+      {user && user.role === "Freelancer" && (
+        <Grid item>
+          <Box mt="15px">
+            <Rating
+              name="read-only"
+              value={
+                profile && profile.ratings.length > 0
+                  ? Math.round(
+                      profile.ratings.reduce((a, b) => a + b) /
+                        profile.ratings.length
+                    )
+                  : 0
+              }
+              readOnly
+            />
+          </Box>
+        </Grid>
+      )}
     </Grid>
   );
 };

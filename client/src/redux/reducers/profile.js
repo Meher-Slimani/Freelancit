@@ -48,7 +48,7 @@ const profileReducer = (state = initialState, { type, payload }) => {
         ...state,
         profile: null,
         repos: [],
-        loading: false,
+        // loading: false,
       };
     default:
       return state;

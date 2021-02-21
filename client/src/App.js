@@ -19,6 +19,9 @@ import EducationDetails from "./components/profile-forms/EducationDetails";
 import EditProfile from "./components/profile-forms/EditProfile";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
+import Projects from "./components/projects/Projects";
+import Project from "./components/project/Project";
+import AddProject from "./components/project-forms/AddProject";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -42,6 +45,8 @@ const App = () => {
           <Route exact path="/login" component={SignIn} />
           <Route exact path="/profiles" component={Profiles} />
           <Route exact path="/profile/:userId" component={Profile} />
+          <Route exact path="/projects" component={Projects} />
+          <Route exact path="/project/:projectId" component={Project} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute
             exact
@@ -59,6 +64,7 @@ const App = () => {
             path="/add-experience"
             component={ExperienceDetails}
           />
+          <PrivateRoute exact path="/add-project" component={AddProject} />
         </Switch>
         <Scroll showBelow={50} />
       </section>

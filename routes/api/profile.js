@@ -255,8 +255,8 @@ router.put(
   [
     auth,
     [
-      check("school", "Title is required").not().isEmpty(),
-      check("degree", "Company is required").not().isEmpty(),
+      check("school", "School is required").not().isEmpty(),
+      check("degree", "Degree is required").not().isEmpty(),
       check("fieldofstudy", "Field Of Study is required").not().isEmpty(),
       check("from", "Date of start is required").not().isEmpty(),
     ],
@@ -342,6 +342,23 @@ router.get("/github/:username", async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//* @route    PUT api/profile/rate/:freelancerId
+//* @desc     Rate a freelancer
+//* @access   Private
+router.put("/rate/:freelancerId", auth, async (req, res) => {
+  const { rate } = req.body;
+
+  try {
+    const profile = await Profile.findById(req.params.freelancerId);
+    profile.ratings.unshift(rate);
+    await profile.save();
+    res.json(profile);
+  } catch (error) {
+    console.log(error);
     res.status(500).send("Server Error");
   }
 });

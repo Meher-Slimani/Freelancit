@@ -6,14 +6,7 @@ import { getProfileById } from "../../redux/actions/profile";
 import Spinner from "../layout/Spinner";
 import DisplayExperience from "../dashboard/DisplayExperience";
 import DisplayEducation from "../dashboard/DisplayEducation";
-import {
-  Avatar,
-  Grid,
-  Typography,
-  Paper,
-  Box,
-  Button,
-} from "@material-ui/core";
+import { Avatar, Typography, Box, Button } from "@material-ui/core";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import CardMembershipIcon from "@material-ui/icons/CardMembership";
@@ -36,6 +29,9 @@ const GlobalCss = withStyles({
     },
     ".MuiTableCell-head": {
       color: "#FFB400",
+    },
+    ".MuiRating-iconEmpty": {
+      color: "black",
     },
   },
 })(() => null);
@@ -74,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = ({ match }) => {
   const classes = useStyles();
-  const auth = useSelector((state) => state.auth);
   const userProfile = useSelector((state) => state.profile);
   const { profile, loading } = userProfile;
   const dispatch = useDispatch();
@@ -113,13 +108,25 @@ const Profile = ({ match }) => {
                 />
               </Box>
               <Box>
-                <Typography variant="h6" style={{ color: "white" }}>
+                <Typography variant="h6" style={{ color: "#1F7396" }}>
                   {profile.user && profile.user.firstName}{" "}
                   {profile.user && profile.user.lastName}
                 </Typography>
               </Box>
               <Box mt="15px">
-                <Rating name="read-only" size="small" value={5} readOnly />
+                <Rating
+                  name="read-only"
+                  size="small"
+                  value={
+                    profile && profile.ratings.length > 0
+                      ? Math.round(
+                          profile.ratings.reduce((a, b) => a + b) /
+                            profile.ratings.length
+                        )
+                      : 0
+                  }
+                  readOnly
+                />
               </Box>
               <Box display="flex" alignItems="center">
                 <Box className={classes.techInfo}>
