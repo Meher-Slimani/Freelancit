@@ -49,17 +49,7 @@ const profileSchema = mongoose.Schema({
       type: String,
     },
   },
-  rating: [
-    {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
-      },
-      rate: {
-        type: Number,
-      },
-    },
-  ],
+  ratings: [Number],
   myProjects: [
     {
       project: {

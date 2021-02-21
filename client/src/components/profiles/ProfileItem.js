@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   glassItem: {
-    background: "white",
     background:
       "linear-gradient(to right bottom, rgba(255, 255, 255,0.2), rgba(255, 255, 255,0.05))",
     borderRadius: "10px",
@@ -31,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
     width: "400px",
     height: "300",
     padding: "10px 15px",
-    // display: "flex",
-    // justifyContent: "center",
-    // alignItems: "center",
     margin: "10px",
     boxShadow: "2px 8px 20px -6px #000000",
     overflow: "hidden",
@@ -64,6 +60,9 @@ const GlobalCss = withStyles({
       height: 80,
       width: 80,
     },
+    ".MuiRating-iconEmpty": {
+      color: "black",
+    },
   },
 })(() => null);
 
@@ -82,17 +81,28 @@ const ProfileItem = ({ profile }) => {
       >
         <GlobalCss />
         <Box className={classes.root}>
-          <Avatar alt="Remy Sharp" src={user && user.avatar && user.avatar} />
+          <Avatar alt="Remy Sharp" src={user && user.avatar} />
         </Box>
         <Box>
           <Typography variant="h6" style={{ color: "#1F7396" }}>
-            {user && user.firstName && user.firstName}{" "}
-            {user && user.lastName && user.lastName}
+            {user && user.firstName} {user && user.lastName}
           </Typography>
         </Box>
         <Box>
           <Box>
-            <Rating name="read-only" size="small" value={5} readOnly />
+            <Rating
+              name="read-only"
+              size="small"
+              value={
+                profile && profile.ratings.length > 0
+                  ? Math.round(
+                      profile.ratings.reduce((a, b) => a + b) /
+                        profile.ratings.length
+                    )
+                  : 0
+              }
+              readOnly
+            />
           </Box>
         </Box>
         <IconButton

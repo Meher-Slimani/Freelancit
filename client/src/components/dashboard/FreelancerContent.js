@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Typography, Paper, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DisplayExperience from "./DisplayExperience";
 import DisplayEducation from "./DisplayEducation";
 import DeleteAccount from "./DeleteAccount";
 import DashboardActions from "./DashboardActions";
+import { getFlProjects } from "../../redux/actions/project";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +57,12 @@ const useStyles = makeStyles((theme) => ({
 
 const FreelancerContent = ({ profile, user }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFlProjects(user._id));
+  }, [dispatch]);
+
   return (
     <>
       <DashboardActions user={user} />
