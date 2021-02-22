@@ -13,6 +13,8 @@ import { getAllProjects } from "../../redux/actions/project";
 const Dashboard = () => {
   const auth = useSelector((state) => state.auth);
   const userProfile = useSelector((state) => state.profile);
+  const projectState = useSelector((state) => state.project);
+  const { freelancerProjects, freelanceSeekerProjects } = projectState;
   const { profile, loading } = userProfile;
   const { user } = auth;
   const dispatch = useDispatch();
@@ -28,12 +30,20 @@ const Dashboard = () => {
     <Spinner />
   ) : user && user.role === "Freelance Seeker" && profile === null ? (
     <>
-      <TopSection user={user} /> <FreelanceSeekerContent user={user} />
+      <TopSection user={user} />{" "}
+      <FreelanceSeekerContent
+        user={user}
+        freelanceSeekerProjects={freelanceSeekerProjects}
+      />
     </>
   ) : profile !== null ? (
     <>
       <TopSection user={user} profile={profile} />
-      <FreelancerContent profile={profile} user={user} />
+      <FreelancerContent
+        profile={profile}
+        user={user}
+        freelancerProjects={freelancerProjects}
+      />
     </>
   ) : (
     <>
