@@ -8,6 +8,7 @@ import {
   GET_FL_PROJECTS,
   APPLY_PROJECT,
   GET_CANDIDATES,
+  RESET_PROJECT_STATE,
 } from "../actions/types";
 import { setAlert } from "./alert";
 
@@ -139,4 +140,11 @@ export const getCandidates = (projectId) => async (dispatch) => {
       },
     });
   }
+};
+
+//* Reset project state
+export const resetProjectState = () => {
+  return {
+    type: RESET_PROJECT_STATE,
+  };
 };

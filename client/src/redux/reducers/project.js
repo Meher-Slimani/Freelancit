@@ -9,6 +9,7 @@ import {
   GET_CANDIDATES,
   CLEAR_CANDIDATES,
   GET_FL_PROJECTS,
+  RESET_PROJECT_STATE,
 } from "../actions/types";
 
 const initialState = {
@@ -84,6 +85,13 @@ const projectReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         candidates: [],
+      };
+    case RESET_PROJECT_STATE:
+      return {
+        ...state,
+        freelancerProjects: [],
+        freelanceSeekerProjects: [],
+        loading: false,
       };
     default:
       return state;
