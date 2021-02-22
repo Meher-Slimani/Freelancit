@@ -347,14 +347,13 @@ const Profile = ({ match }) => {
                 </Box>
               )}
               <Box my="5px">
-                <Link to="/profiles" className="text-link">
-                  <Button
-                    variant="outlined"
-                    style={{ color: "white", borderColor: "white" }}
-                  >
-                    Back to profiles
-                  </Button>
-                </Link>
+                <Button
+                  variant="outlined"
+                  style={{ color: "white", borderColor: "white" }}
+                  onClick={() => window.history.back()}
+                >
+                  Back
+                </Button>
               </Box>
             </Box>
           </Box>

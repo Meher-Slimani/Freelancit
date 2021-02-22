@@ -26,14 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GlobalCss = withStyles({
-  "@global": {
-    ".MuiAvatar-root": {
-      height: 80,
-      width: 80,
-    },
-  },
-})(() => null);
+// const GlobalCss = withStyles({
+//   "@global": {
+//     ".MuiAvatar-root": {
+//       height: 80,
+//       width: 80,
+//     },
+//   },
+// })(() => null);
 
 const ProjectItem = ({
   project: {
@@ -56,9 +56,13 @@ const ProjectItem = ({
         flexDirection="column"
         alignItems="center"
       >
-        <GlobalCss />
+        {/* <GlobalCss /> */}
         <Box className={classes.root}>
-          <Avatar alt="Remy Sharp" src={avatar} />
+          <Avatar
+            alt="Remy Sharp"
+            src={avatar}
+            style={{ width: "80px", height: "80px" }}
+          />
         </Box>
         <Box>
           <Typography variant="h6" style={{ color: "#1F7396" }}>

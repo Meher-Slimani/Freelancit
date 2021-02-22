@@ -7,6 +7,7 @@ import DisplayEducation from "./DisplayEducation";
 import DeleteAccount from "./DeleteAccount";
 import DashboardActions from "./DashboardActions";
 import { getFlProjects } from "../../redux/actions/project";
+import ProjectItem from "../projects/ProjectItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,10 +53,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: "10px",
   },
-  paperStyle: { padding: "30px 20px", width: 830, margin: "20px auto" },
+  paperStyle: {
+    padding: "30px 20px",
+    width: 830,
+    margin: "20px auto",
+    borderRadius: "15px",
+  },
 }));
 
-const FreelancerContent = ({ profile, user }) => {
+const FreelancerContent = ({ profile, user, freelancerProjects }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -66,7 +72,12 @@ const FreelancerContent = ({ profile, user }) => {
   return (
     <>
       <DashboardActions user={user} />
-      <Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
         {profile.experiences.length > 0 ? (
           <Paper elevation={20} className={classes.paperStyle}>
             <Typography variant="h4" style={{ color: "#1F7396" }}>
@@ -90,6 +101,12 @@ const FreelancerContent = ({ profile, user }) => {
         ) : (
           ""
         )}
+        {freelancerProjects.length > 0 &&
+          React.Children.toArray(
+            freelancerProjects.map((project) => (
+              <ProjectItem project={project} />
+            ))
+          )}
       </Box>
       <DeleteAccount />
     </>
