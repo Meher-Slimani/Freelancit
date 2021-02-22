@@ -10,6 +10,7 @@ import {
   CLEAR_CANDIDATES,
   GET_FL_PROJECTS,
   RESET_PROJECT_STATE,
+  DELETE_PROJECT,
 } from "../actions/types";
 
 const initialState = {
@@ -91,6 +92,15 @@ const projectReducer = (state = initialState, { type, payload }) => {
         ...state,
         freelancerProjects: [],
         freelanceSeekerProjects: [],
+        loading: false,
+      };
+    case DELETE_PROJECT:
+      return {
+        ...state,
+        projects: state.projects.filter((project) => project._id !== payload),
+        freelanceSeekerProjects: state.freelanceSeekerProjects.filter(
+          (project) => project._id !== payload
+        ),
         loading: false,
       };
     default:

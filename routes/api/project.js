@@ -180,7 +180,9 @@ router.put("/apply/:projectId", auth, async (req, res) => {
     ) {
       return res
         .status(400)
-        .json({ msg: "You have already applied for this project" });
+        .json({
+          errors: [{ msg: "You have already applied for this project" }],
+        });
     }
     project.candidates.unshift({ user: req.user.id });
     await project.save();
@@ -212,7 +214,7 @@ router.get("/candidates/:projectId", auth, async (req, res) => {
 });
 
 //* @route    PUT api/project/affect/:projectId/:candidateId
-//* desc      Apply for a project
+//* desc      Affect for a project
 //* access    Private
 router.put("/affect/:projectId/:candidateId", auth, async (req, res) => {
   try {

@@ -191,14 +191,13 @@ const Project = ({ match }) => {
                 justifyContent="center"
                 mt="20px"
               >
-                <Link to="/projects" className="text-link">
-                  <Button
-                    variant="outlined"
-                    style={{ color: "white", borderColor: "white" }}
-                  >
-                    Back to Projects
-                  </Button>
-                </Link>
+                <Button
+                  variant="outlined"
+                  onClick={() => window.history.back()}
+                  style={{ color: "white", borderColor: "white" }}
+                >
+                  Back
+                </Button>
                 {user && user.role === "Freelancer" && (
                   <ApplyButton
                     user={user}

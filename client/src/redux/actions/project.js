@@ -9,6 +9,7 @@ import {
   APPLY_PROJECT,
   GET_CANDIDATES,
   RESET_PROJECT_STATE,
+  DELETE_PROJECT,
 } from "../actions/types";
 import { setAlert } from "./alert";
 
@@ -110,8 +111,15 @@ export const applyProject = (projectId, history) => async (dispatch) => {
     dispatch({
       type: APPLY_PROJECT,
     });
+    dispatch(setAlert("Applied successfully", "success"));
     history.push("/projects");
   } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((err) => {
+        dispatch(setAlert(err.msg, "error"));
+      });
+    }
     dispatch({
       type: PROJECT_ERROR,
       payload: {
@@ -147,4 +155,26 @@ export const resetProjectState = () => {
   return {
     type: RESET_PROJECT_STATE,
   };
+};
+
+//* Delete Project
+export const deleteProject = (projectId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/project/${projectId}`);
+
+    dispatch({
+      type: DELETE_PROJECT,
+      payload: projectId,
+    });
+
+    dispatch(setAlert("Project Removed", "success"));
+  } catch (error) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
 };
