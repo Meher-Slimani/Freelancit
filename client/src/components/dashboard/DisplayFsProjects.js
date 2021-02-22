@@ -71,9 +71,11 @@ const DisplayFsProjects = ({
           alignItems="center"
           width="100%"
         >
-          <Button variant="contained" color="primary">
-            Show Candidates
-          </Button>
+          <Link to={`/project/${_id}/candidates`} className="text-link">
+            <Button variant="contained" color="primary">
+              Show Candidates
+            </Button>
+          </Link>
           <Link to={`/project/${_id}`} className="text-link">
             <Button
               variant="contained"

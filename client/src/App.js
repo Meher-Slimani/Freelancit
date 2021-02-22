@@ -22,6 +22,7 @@ import Profile from "./components/profile/Profile";
 import Projects from "./components/projects/Projects";
 import Project from "./components/project/Project";
 import AddProject from "./components/project-forms/AddProject";
+import Candidates from "./components/project/Candidates";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -65,6 +66,11 @@ const App = () => {
             component={ExperienceDetails}
           />
           <PrivateRoute exact path="/add-project" component={AddProject} />
+          <PrivateRoute
+            exact
+            path="/project/:projectId/candidates"
+            component={Candidates}
+          />
         </Switch>
         <Scroll showBelow={50} />
       </section>
