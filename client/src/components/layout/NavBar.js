@@ -25,6 +25,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import InfoIcon from "@material-ui/icons/Info";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import { logout } from "../../redux/actions/auth";
+import { resetProjectState } from "../../redux/actions/project";
 
 const useStyles = makeStyles({
   glassLogo: {
@@ -101,6 +102,7 @@ const NavBar = () => {
       </Link>
       <Link
         onClick={(e) => {
+          dispatch(resetProjectState());
           dispatch(logout());
         }}
         to="/"
