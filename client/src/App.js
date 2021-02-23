@@ -23,6 +23,8 @@ import Projects from "./components/projects/Projects";
 import Project from "./components/project/Project";
 import AddProject from "./components/project-forms/AddProject";
 import Candidates from "./components/project/Candidates";
+import { getAllProjects } from "./redux/actions/project";
+import { getAllProfiles } from "./redux/actions/profile";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -32,6 +34,8 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadUser());
+    dispatch(getAllProjects());
+    dispatch(getAllProfiles());
   }, [dispatch]);
   return (
     <Router>

@@ -5,10 +5,14 @@ import DashboardActions from "./DashboardActions";
 import DeleteAccount from "./DeleteAccount";
 import { Typography, Box } from "@material-ui/core";
 import DisplayFsProjects from "./DisplayFsProjects";
+import { CLEAR_CANDIDATES } from "../../redux/actions/types";
 
 const FreelanceSeekerContent = ({ user, freelanceSeekerProjects }) => {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch({
+      type: CLEAR_CANDIDATES,
+    });
     dispatch(getFsProjects(user._id));
   }, [dispatch]);
   return (

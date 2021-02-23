@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "2px 8px 20px -6px #000000",
   },
   container: {
-    width: "100vw",
     height: "100vh",
   },
 }));

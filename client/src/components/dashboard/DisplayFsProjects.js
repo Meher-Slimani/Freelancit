@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Box, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
-import { deleteProject } from "../../redux/actions/project";
+import { deleteProject, getAllProjects } from "../../redux/actions/project";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     width: "700px",
     height: "auto",
-    padding: "10px 15px",
-    margin: "10px",
+    padding: "20px 15px",
+    margin: "30px 0",
     boxShadow: "2px 8px 20px -6px #000000",
     display: "flex",
     justifyContent: "space-between",
@@ -53,7 +53,7 @@ const DisplayFsProjects = ({
           textOverflow="ellipsis"
           overflow="hidden"
           component="div"
-          maxWidth="490px"
+          maxWidth="650px"
           whiteSpace="nowrap"
           style={{ color: "white", fontSize: "18px" }}
         >
