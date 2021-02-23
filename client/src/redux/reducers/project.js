@@ -11,6 +11,7 @@ import {
   GET_FL_PROJECTS,
   RESET_PROJECT_STATE,
   DELETE_PROJECT,
+  AFFECT_PROJECT,
 } from "../actions/types";
 
 const initialState = {
@@ -34,9 +35,11 @@ const projectReducer = (state = initialState, { type, payload }) => {
     case GET_FS_PROJECTS:
       return {
         ...state,
-        freelanceSeekerProjects: state.projects.filter((project) => {
-          return project.user === payload;
-        }),
+        freelanceSeekerProjects: state.projects
+          .filter((project) => {
+            return project.user === payload;
+          })
+          .sort((a, b) => a.publishedAt - b.publishedAt),
         loading: false,
       };
     case GET_FL_PROJECTS:
@@ -57,15 +60,12 @@ const projectReducer = (state = initialState, { type, payload }) => {
     case ADD_PROJECT:
       return {
         ...state,
-        projects: [...state.projects, payload],
-        loading: false,
-      };
-    case APPLY_PROJECT:
-      return {
-        ...state,
+        projects: [payload, ...state.projects],
         loading: false,
       };
     case GET_CANDIDATES:
+    case APPLY_PROJECT:
+    case AFFECT_PROJECT:
       return {
         ...state,
         candidates: payload,

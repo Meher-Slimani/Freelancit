@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, Avatar, IconButton, Button } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
+import CheckCircleOutlineOutlinedIcon from "@material-ui/icons/CheckCircleOutlineOutlined";
+import { affectProject } from "../../redux/actions/project";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,31 +41,46 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateY(100%)",
     transition: "transform 0.3s ease-in-out",
     overflow: "auto",
-    height: "260px",
+    height: "300px",
     borderRadius: "10px",
     zIndex: 0,
   },
   active: {
     transform: "translateX(0%)",
   },
+  enabledButton: {
+    backgroundColor: "#FFB400",
+    color: "#040723",
+    padding: "0 38px",
+  },
 }));
 
 const GlobalCss = withStyles({
   "@global": {
-    // ".MuiAvatar-root": {
-    //   height: 80,
-    //   width: 80,
-    // },
     ".MuiRating-iconEmpty": {
       color: "black",
+    },
+    ".MuiButton-contained.Mui-disabled": {
+      backgroundColor: "#bcbdc4",
+      color: "#1B1D37",
+      padding: "0 38px",
     },
   },
 })(() => null);
 
-const Candidate = ({ candidate }) => {
-  const [open, setOpen] = useState(true);
-  const { user } = candidate;
+const Candidate = ({ candidateProfile, candidates, history }) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(true);
+  const projectState = useSelector((state) => state.project);
+  const { project } = projectState;
+  const dispatch = useDispatch();
+  const { user } = candidateProfile;
+  const candidate = candidates.find(
+    (c) => c.user === candidateProfile.user._id
+  );
+
+  console.log(candidates.some((can) => can.affected === false));
+
   return (
     <Box className={classes.glassItem}>
       <Box
@@ -91,10 +109,10 @@ const Candidate = ({ candidate }) => {
               name="read-only"
               size="small"
               value={
-                candidate && candidate.ratings.length > 0
+                candidateProfile && candidateProfile.ratings.length > 0
                   ? Math.round(
-                      candidate.ratings.reduce((a, b) => a + b) /
-                        candidate.ratings.length
+                      candidateProfile.ratings.reduce((a, b) => a + b) /
+                        candidateProfile.ratings.length
                     )
                   : 0
               }
@@ -126,13 +144,30 @@ const Candidate = ({ candidate }) => {
               View Profile
             </Button>
           </Link>
+          {candidates.some(
+            (can) =>
+              can.affected === true && can.user === candidateProfile.user._id
+          ) ? (
+            <CheckCircleOutlineOutlinedIcon
+              style={{ color: "#30C730", fontSize: "40" }}
+            />
+          ) : (
+            ""
+          )}
+          <GlobalCss />
           <Button
             variant="contained"
-            style={{
-              backgroundColor: "#FFB400",
-              color: "#040723",
-              padding: "0 35px",
-            }}
+            disabled={
+              candidates.some((can) => can.affected === true) ? true : false
+            }
+            className={
+              candidates.some((can) => can.affected === true)
+                ? ``
+                : `${classes.enabledButton}`
+            }
+            onClick={() =>
+              dispatch(affectProject(project._id, candidate._id, history))
+            }
           >
             Affect
           </Button>
@@ -153,11 +188,11 @@ const Candidate = ({ candidate }) => {
           >
             <KeyboardArrowDownOutlinedIcon style={{ color: "white" }} />
           </IconButton>
-          {candidate.aboutMe}
+          {candidateProfile.aboutMe}
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default Candidate;
+export default withRouter(Candidate);

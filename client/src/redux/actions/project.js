@@ -10,6 +10,7 @@ import {
   GET_CANDIDATES,
   RESET_PROJECT_STATE,
   DELETE_PROJECT,
+  AFFECT_PROJECT,
 } from "../actions/types";
 import { setAlert } from "./alert";
 
@@ -32,7 +33,7 @@ export const getAllProjects = () => async (dispatch) => {
   }
 };
 
-//* Get My Projects
+//* Get FreelanceSeeker posted projects
 export const getFsProjects = (fsId) => {
   return {
     type: GET_FS_PROJECTS,
@@ -40,7 +41,7 @@ export const getFsProjects = (fsId) => {
   };
 };
 
-//* Get My Projects
+//* Get Freelancer applied for projects
 export const getFlProjects = (flId) => {
   return {
     type: GET_FL_PROJECTS,
@@ -110,6 +111,7 @@ export const applyProject = (projectId, history) => async (dispatch) => {
 
     dispatch({
       type: APPLY_PROJECT,
+      payload: res.data,
     });
     dispatch(setAlert("Applied successfully", "success"));
     history.push("/projects");
@@ -160,7 +162,7 @@ export const resetProjectState = () => {
 //* Delete Project
 export const deleteProject = (projectId) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/project/${projectId}`);
+    await axios.delete(`/api/project/${projectId}`);
 
     dispatch({
       type: DELETE_PROJECT,
@@ -168,6 +170,34 @@ export const deleteProject = (projectId) => async (dispatch) => {
     });
 
     dispatch(setAlert("Project Removed", "success"));
+  } catch (error) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+//* Affect a project
+export const affectProject = (projectId, candidateId, history) => async (
+  dispatch
+) => {
+  try {
+    const res = await axios.put(
+      `/api/project/affect/${projectId}/${candidateId}`
+    );
+
+    dispatch({
+      type: AFFECT_PROJECT,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Project affected successfully", "success"));
+
+    history.push("/dashboard");
   } catch (error) {
     dispatch({
       type: PROJECT_ERROR,

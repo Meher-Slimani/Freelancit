@@ -178,15 +178,13 @@ router.put("/apply/:projectId", auth, async (req, res) => {
         (candidate) => candidate.user.toString() === req.user.id
       ).length > 0
     ) {
-      return res
-        .status(400)
-        .json({
-          errors: [{ msg: "You have already applied for this project" }],
-        });
+      return res.status(400).json({
+        errors: [{ msg: "You have already applied for this project" }],
+      });
     }
     project.candidates.unshift({ user: req.user.id });
     await project.save();
-    res.json({ msg: "Applied successfully" });
+    res.json(project.candidates);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
@@ -214,7 +212,7 @@ router.get("/candidates/:projectId", auth, async (req, res) => {
 });
 
 //* @route    PUT api/project/affect/:projectId/:candidateId
-//* desc      Affect for a project
+//* desc      Affect a project
 //* access    Private
 router.put("/affect/:projectId/:candidateId", auth, async (req, res) => {
   try {
