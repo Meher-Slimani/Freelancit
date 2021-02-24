@@ -31,7 +31,7 @@ const FreelanceSeekerContent = ({ user, freelanceSeekerProjects }) => {
         ) : (
           React.Children.toArray(
             freelanceSeekerProjects.map((project) => (
-              <DisplayFsProjects project={project} />
+              <DisplayFsProjects project={project} user={user} />
             ))
           )
         )}

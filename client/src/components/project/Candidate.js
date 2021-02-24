@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
       "linear-gradient(to right bottom, rgba(255, 255, 255,0.2), rgba(255, 255, 255,0.05))",
     borderRadius: "10px",
     position: "relative",
-    width: "400px",
+    width: "420px",
     height: "300",
     padding: "10px 15px",
     margin: "10px",
@@ -78,8 +78,6 @@ const Candidate = ({ candidateProfile, candidates, history }) => {
   const candidate = candidates.find(
     (c) => c.user === candidateProfile.user._id
   );
-
-  console.log(candidates.some((can) => can.affected === false));
 
   return (
     <Box className={classes.glassItem}>
@@ -149,7 +147,7 @@ const Candidate = ({ candidateProfile, candidates, history }) => {
               can.affected === true && can.user === candidateProfile.user._id
           ) ? (
             <CheckCircleOutlineOutlinedIcon
-              style={{ color: "#30C730", fontSize: "40" }}
+              style={{ color: "#30C730", fontSize: "36" }}
             />
           ) : (
             ""
@@ -165,9 +163,9 @@ const Candidate = ({ candidateProfile, candidates, history }) => {
                 ? ``
                 : `${classes.enabledButton}`
             }
-            onClick={() =>
-              dispatch(affectProject(project._id, candidate._id, history))
-            }
+            onClick={() => {
+              dispatch(affectProject(project._id, candidate._id, history));
+            }}
           >
             Affect
           </Button>

@@ -11,6 +11,7 @@ import {
   RESET_PROJECT_STATE,
   DELETE_PROJECT,
   AFFECT_PROJECT,
+  CLOSE_PROJECT,
 } from "../actions/types";
 import { setAlert } from "./alert";
 
@@ -198,6 +199,30 @@ export const affectProject = (projectId, candidateId, history) => async (
     dispatch(setAlert("Project affected successfully", "success"));
 
     history.push("/dashboard");
+    window.location.reload(true);
+  } catch (error) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+//* Close project
+export const closeProject = (projectId) => async (dispatch) => {
+  try {
+    await axios.put(`api/project/close/${projectId}`);
+
+    dispatch({
+      type: CLOSE_PROJECT,
+    });
+
+    dispatch(setAlert("Project Closed Successfully", "success"));
+
+    window.location.reload();
   } catch (error) {
     dispatch({
       type: PROJECT_ERROR,

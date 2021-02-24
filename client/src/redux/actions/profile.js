@@ -8,6 +8,7 @@ import {
   CLEAR_PROFILE,
   GET_PROFILES,
   GET_REPOS,
+  RATE_PROFILE,
 } from "./types";
 
 //* GET CURRENT PROFILE
@@ -264,6 +265,25 @@ export const deleteAccount = () => async (dispatch) => {
     });
 
     dispatch(setAlert("Account has been permanently deleted"));
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+//* Rate Profile
+export const rateProfile = (profileId, rate) => async (dispatch) => {
+  try {
+    await axios.put(`/api/profile/rate/${profileId}/${rate}`);
+
+    dispatch({
+      type: RATE_PROFILE,
+    });
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,

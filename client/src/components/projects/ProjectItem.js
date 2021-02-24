@@ -3,6 +3,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { Box, Typography, Avatar, Button } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,22 +19,21 @@ const useStyles = makeStyles((theme) => ({
     width: "700px",
     height: "auto",
     padding: "10px 15px",
-    margin: "10px",
+    margin: "30px 0",
     boxShadow: "2px 8px 20px -6px #000000",
     display: "flex",
     justifyContent: "space-between",
     alignContent: "center",
   },
+  appliedProject: {
+    border: "4px solid #FFB400",
+    boxShadow: "0px 0px 18px 0px #FFB400",
+  },
+  affectedProject: {
+    border: "4px solid #30C730",
+    boxShadow: "0px 0px 18px 0px #30C730",
+  },
 }));
-
-// const GlobalCss = withStyles({
-//   "@global": {
-//     ".MuiAvatar-root": {
-//       height: 80,
-//       width: 80,
-//     },
-//   },
-// })(() => null);
 
 const ProjectItem = ({
   project: {
@@ -44,11 +44,27 @@ const ProjectItem = ({
     title,
     description,
     publishedAt,
+    candidates,
   },
+  user,
 }) => {
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
   const classes = useStyles();
   return (
-    <Box className={classes.glassItem}>
+    <Box
+      className={
+        auth.isAuthenticated &&
+        user &&
+        candidates.some((can) => can.user === user._id && can.affected === true)
+          ? `${classes.glassItem} ${classes.affectedProject}`
+          : auth.isAuthenticated &&
+            user &&
+            candidates.some((can) => can.user === user._id)
+          ? `${classes.glassItem} ${classes.appliedProject}`
+          : `${classes.glassItem}`
+      }
+    >
       <Box
         flex="1"
         display="flex"

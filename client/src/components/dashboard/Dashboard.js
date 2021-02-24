@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { CLEAR_PROFILE } from "../../redux/actions/types";
+import { CLEAR_PROFILE, CLEAR_PROJECT } from "../../redux/actions/types";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentProfile } from "../../redux/actions/profile";
 import { Typography, Box, Button } from "@material-ui/core";
@@ -8,7 +8,7 @@ import Spinner from "../layout/Spinner";
 import FreelancerContent from "./FreelancerContent";
 import FreelanceSeekerContent from "./FreelanceSeekerContent";
 import TopSection from "./TopSection";
-import { getAllProjects } from "../../redux/actions/project";
+import { getAllProjects, getFsProjects } from "../../redux/actions/project";
 
 const Dashboard = () => {
   const auth = useSelector((state) => state.auth);
@@ -23,8 +23,12 @@ const Dashboard = () => {
     dispatch({
       type: CLEAR_PROFILE,
     });
+    dispatch({
+      type: CLEAR_PROJECT,
+    });
     dispatch(getCurrentProfile());
     dispatch(getAllProjects());
+    dispatch(getFsProjects(user && user._id));
   }, [dispatch]);
   return loading && profile === null ? (
     <Spinner />

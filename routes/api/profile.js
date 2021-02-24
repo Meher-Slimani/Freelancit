@@ -346,17 +346,15 @@ router.get("/github/:username", async (req, res) => {
   }
 });
 
-//* @route    PUT api/profile/rate/:freelancerId
+//* @route    PUT api/profile/rate/:profileId
 //* @desc     Rate a freelancer
 //* @access   Private
-router.put("/rate/:freelancerId", auth, async (req, res) => {
-  const { rate } = req.body;
-
+router.put("/rate/:profileId/:rate", auth, async (req, res) => {
   try {
-    const profile = await Profile.findById(req.params.freelancerId);
-    profile.ratings.unshift(rate);
+    const profile = await Profile.findById(req.params.profileId);
+    profile.ratings.unshift(Number(req.params.rate));
     await profile.save();
-    res.json(profile);
+    res.json({ msg: "Profile Rated Successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).send("Server Error");
