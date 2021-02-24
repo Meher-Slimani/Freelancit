@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Box, Typography, Button } from "@material-ui/core";
+import { Box, Typography, Button, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import { deleteProject, getAllProjects } from "../../redux/actions/project";
+import RateClose from "./RateClose";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,28 +28,69 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignContent: "center",
   },
+  appliedProject: {
+    border: "4px solid #FFB400",
+    boxShadow: "0px 0px 18px 0px #FFB400",
+  },
+  affectedProject: {
+    border: "4px solid #30C730",
+    boxShadow: "0px 0px 18px 0px #30C730",
+  },
 }));
 
 const DisplayFsProjects = ({
-  project: { _id, title, description, publishedAt },
+  project: { _id, title, description, publishedAt, candidates, closed },
+  user,
 }) => {
+  const auth = useSelector((state) => state.auth);
+  const profileState = useSelector((state) => state.profile);
+  const candidateProfile = profileState.profiles.find((profile) =>
+    candidates.some((candidate) => candidate.user === profile.user._id)
+  );
   const dispatch = useDispatch();
   const classes = useStyles();
+  useEffect(() => {
+    dispatch(getAllProjects());
+  }, [dispatch]);
   return (
-    <Box className={classes.glassItem}>
+    <Box
+      className={
+        auth.isAuthenticated &&
+        candidates.length > 0 &&
+        candidates.some((can) => can.affected === true)
+          ? `${classes.glassItem} ${classes.affectedProject}`
+          : auth.isAuthenticated && candidates.length > 0
+          ? `${classes.glassItem} ${classes.appliedProject}`
+          : `${classes.glassItem}`
+      }
+    >
       <Box
         display="flex"
         flex="3"
         flexDirection="column"
         alignItems="flex-start"
       >
-        <Typography
-          variant="h4"
-          display="block"
-          style={{ color: "white", marginBottom: "10px" }}
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
         >
-          {title}
-        </Typography>
+          <Typography
+            variant="h4"
+            display="block"
+            style={{ color: "white", marginBottom: "10px" }}
+          >
+            {title}
+          </Typography>
+          <IconButton
+            onClick={() => {
+              dispatch(deleteProject(_id));
+            }}
+          >
+            <DeleteForeverOutlinedIcon color="secondary" />
+          </IconButton>
+        </Box>
         <Box
           textOverflow="ellipsis"
           overflow="hidden"
@@ -78,26 +120,21 @@ const DisplayFsProjects = ({
           </Link>
           <Link to={`/project/${_id}`} className="text-link">
             <Button
-              variant="contained"
+              variant="outlined"
               style={{
-                backgroundColor: "#FFB400",
-                color: "#040723",
+                color: "white",
+                borderColor: "white",
               }}
             >
               More Details
             </Button>
           </Link>
           <Box>
-            <Button
-              startIcon={<DeleteForeverOutlinedIcon />}
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                dispatch(deleteProject(_id));
-              }}
-            >
-              Delete Project
-            </Button>
+            <RateClose
+              candidateProfile={candidateProfile}
+              projectId={_id}
+              closed={closed}
+            />
           </Box>
         </Box>
       </Box>

@@ -24,7 +24,8 @@ const ApplyButton = ({ user, candidates, project, history }) => {
         type="submit"
         color="primary"
         disabled={
-          candidates.some((candidate) => candidate.user === user._id)
+          candidates.some((candidate) => candidate.user === user._id) ||
+          project.closed
             ? true
             : false
         }

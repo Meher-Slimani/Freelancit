@@ -10,10 +10,12 @@ import Spinner from "../layout/Spinner";
 const Candidates = ({ match }) => {
   const projectState = useSelector((state) => state.project);
   const profileState = useSelector((state) => state.profile);
-  const { candidates } = projectState;
-  const { profiles, loading } = profileState;
-  const candidateProfiles = profiles.filter((profile) =>
-    candidates.some((candidate) => candidate.user === profile.user._id)
+  // const { candidates } = projectState;
+  // const { profiles } = profileState;
+  const candidateProfiles = profileState.profiles.filter((profile) =>
+    projectState.candidates.some(
+      (candidate) => candidate.user === profile.user._id
+    )
   );
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,9 +25,41 @@ const Candidates = ({ match }) => {
   }, [dispatch]);
   return (
     <>
-      {loading ? (
+      {profileState.loading && projectState.loading ? (
         <Spinner />
-      ) : !loading && candidateProfiles.length === 0 ? (
+      ) : candidateProfiles.length > 0 ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Grid container display="flex" justify="center">
+            {projectState.candidates &&
+              candidateProfiles &&
+              React.Children.toArray(
+                candidateProfiles.map((candidateProfile) => (
+                  <Candidate
+                    candidateProfile={candidateProfile}
+                    candidates={projectState.candidates}
+                  />
+                ))
+              )}
+          </Grid>
+          <Link to="/dashboard" className="text-link">
+            <Button
+              style={{
+                color: "white",
+                borderColor: "white",
+                marginTop: "20px",
+              }}
+              variant="outlined"
+            >
+              Back to Dashboard
+            </Button>
+          </Link>
+        </Box>
+      ) : (
         <Box
           display="flex"
           justifyContent="center"
@@ -45,38 +79,6 @@ const Candidates = ({ match }) => {
               </Button>
             </Link>
           </Box>
-        </Box>
-      ) : (
-        <Box
-          display="flex"
-          justifyContent="center"
-          flexDirection="column"
-          alignItems="center"
-        >
-          <Grid container display="flex" justify="center">
-            {candidates &&
-              candidateProfiles &&
-              React.Children.toArray(
-                candidateProfiles.map((candidateProfile) => (
-                  <Candidate
-                    candidateProfile={candidateProfile}
-                    candidates={candidates}
-                  />
-                ))
-              )}
-          </Grid>
-          <Link to="/dashboard" className="text-link">
-            <Button
-              style={{
-                color: "white",
-                borderColor: "white",
-                marginTop: "20px",
-              }}
-              variant="outlined"
-            >
-              Back to Dashboard
-            </Button>
-          </Link>
         </Box>
       )}
     </>

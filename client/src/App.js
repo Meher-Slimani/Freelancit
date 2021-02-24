@@ -7,6 +7,7 @@ import NavBar from "./components/layout/NavBar";
 import { loadUser } from "./redux/actions/auth";
 import setAuthToken from "./redux/utils/setAuthToken";
 import Landing from "./components/layout/Landing";
+import About from "./components/layout/About";
 import Scroll from "./components/layout/Scroll";
 import SignUp from "./components/auth/SignUp";
 import SignIn from "./components/auth/SignIn";
@@ -46,6 +47,7 @@ const App = () => {
           <Alerts />
         </Box>
         <Switch>
+          <Route exact path="/about" component={About} />
           <Route exact path="/register" component={SignUp} />
           <Route exact path="/login" component={SignIn} />
           <Route exact path="/profiles" component={Profiles} />

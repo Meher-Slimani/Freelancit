@@ -240,7 +240,7 @@ router.put("/close/:projectId", auth, async (req, res) => {
       { new: true }
     );
     await project.save();
-    res.json(project);
+    res.json({ msg: "Project Closed Successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");

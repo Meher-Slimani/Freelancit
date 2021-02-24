@@ -44,7 +44,8 @@ const GlobalCss = withStyles({
       borderRadius: "50%",
     },
     ".MuiRating-iconEmpty": {
-      color: "white",
+      color: "black",
+      borderColor: "white",
     },
   },
 })(() => null);
@@ -57,6 +58,19 @@ const useStyles = makeStyles((theme) => ({
     },
     justifyContent: "center",
     alignItems: "center",
+  },
+  glassItem: {
+    background:
+      "linear-gradient(to right bottom, rgba(255, 255, 255,0.2), rgba(255, 255, 255,0.05))",
+    borderRadius: "10px",
+    width: "auto",
+    height: "auto",
+    padding: "5px 5px",
+    margin: "10px 0",
+    boxShadow: "2px 8px 20px -6px #000000",
+    display: "flex",
+    justifyContent: "space-between",
+    alignContent: "center",
   },
 }));
 
@@ -91,7 +105,7 @@ const TopSection = ({ user, profile }) => {
       </Grid>
       {user && user.role === "Freelancer" && (
         <Grid item>
-          <Box mt="15px">
+          <Box mt="15px" className={classes.glassItem}>
             <Rating
               name="read-only"
               value={

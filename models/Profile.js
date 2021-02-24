@@ -50,14 +50,6 @@ const profileSchema = mongoose.Schema({
     },
   },
   ratings: [Number],
-  myProjects: [
-    {
-      project: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "project",
-      },
-    },
-  ],
   experiences: [
     {
       title: {

@@ -101,12 +101,14 @@ const FreelancerContent = ({ profile, user, freelancerProjects }) => {
         ) : (
           ""
         )}
-        {freelancerProjects.length > 0 &&
-          React.Children.toArray(
-            freelancerProjects.map((project) => (
-              <ProjectItem project={project} />
-            ))
-          )}
+        <Box mt="20px">
+          {freelancerProjects.length > 0 &&
+            React.Children.toArray(
+              freelancerProjects.map((project) => (
+                <ProjectItem project={project} user={user} />
+              ))
+            )}
+        </Box>
       </Box>
       <DeleteAccount />
     </>
